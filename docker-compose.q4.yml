@@ -1,0 +1,51 @@
+version: '3.8'
+services:
+  q4_node1:
+    build: .
+    environment:
+      - NODE_ID=1
+    networks:
+      - raft_net
+
+  q4_node2:
+    build: .
+    environment:
+      - NODE_ID=2
+    networks:
+      - raft_net
+
+  q4_node3:
+    build: .
+    environment:
+      - NODE_ID=3
+    networks:
+      - raft_net
+
+  q4_node4:
+    build: .
+    environment:
+      - NODE_ID=4
+    networks:
+      - raft_net
+
+  q4_node5:
+    build: .
+    environment:
+      - NODE_ID=5
+    networks:
+      - raft_net
+
+  client:
+    build: .
+    command: ["go", "run", "client.go"]
+    environment:
+      - CLIENT_TARGET=q4_node3:50052
+    depends_on:
+      - q4_node3
+    networks:
+      - raft_net
+
+networks:
+  raft_net:
+    external: true
+

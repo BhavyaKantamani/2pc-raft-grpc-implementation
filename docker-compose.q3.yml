@@ -1,0 +1,47 @@
+version: '3.8'
+
+services:
+  q3_node1:
+    container_name: q3_node1
+    build: .
+    command: ["python", "-u", "q3_node.py", "1"]
+    networks:
+      - raft_net
+    restart: always
+
+  q3_node2:
+    container_name: q3_node2
+    build: .
+    command: ["python", "-u", "q3_node.py", "2"]
+    networks:
+      - raft_net
+    restart: always
+
+  q3_node3:
+    container_name: q3_node3
+    build: .
+    command: ["python", "-u", "q3_node.py", "3"]
+    networks:
+      - raft_net
+    restart: always
+
+  q3_node4:
+    container_name: q3_node4
+    build: .
+    command: ["python", "-u", "q3_node.py", "4"]
+    networks:
+      - raft_net
+    restart: always
+
+  q3_node5:
+    container_name: q3_node5
+    build: .
+    command: ["python", "-u", "q3_node.py", "5"]
+    networks:
+      - raft_net
+    restart: always
+
+networks:
+  raft_net:
+    external: true
+

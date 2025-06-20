@@ -1,0 +1,44 @@
+syntax = "proto3";
+
+package twopc;
+
+option go_package = "twopc/proto;proto";
+
+service VotingService {
+  rpc Vote (VoteRequest) returns (VoteResponse);
+}
+service CoordinatorService {
+  rpc RequestVote (VoteRequest) returns (VoteResponse);
+}
+service DecisionService {
+  rpc ReportVote (VoteReport) returns (Ack); 
+  rpc StartDecisionPhase (DecisionRequest) returns (Ack); 
+}
+service GlobalDecisionService {
+  rpc GlobalDecision (DecisionMessage) returns (Ack);
+}
+message VoteRequest {
+  string transaction_id = 1;
+  string node_id = 2;
+}
+message VoteResponse {
+  string transaction_id = 1;
+  string node_id = 2;
+  bool commit = 3;
+}
+message VoteReport {
+  string transaction_id = 1;
+  string node_id = 2;
+  bool commit = 3;
+}
+message DecisionRequest {
+  string transaction_id = 1;
+  repeated VoteReport votes = 2;
+}
+message DecisionMessage {
+  string transaction_id = 1;
+  bool global_commit = 2;
+}
+message Ack {
+  string message = 1;
+}
